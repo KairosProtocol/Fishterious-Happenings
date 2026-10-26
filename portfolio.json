@@ -1,0 +1,22 @@
+{
+  "summary": "A cosy 2D side-scrolling fishing game that runs entirely in the browser: no build step, no libraries, no image or sound files.",
+  "stack": ["JavaScript (ES modules)", "HTML5 Canvas 2D", "Web Audio API", "localStorage", "GitHub Pages", "Node.js (dev server only)"],
+  "howItWorks": [
+    "One requestAnimationFrame loop updates the world and then redraws everything on a single canvas. The time step is capped, so coming back to a background tab doesn't make things jump.",
+    "The sea is 12,000px wide and gets deeper to the right. The camera follows the boat sideways and the hook downwards, and only what's on screen is drawn.",
+    "Fish, the girl, dolphins and whales are drawn in code with canvas paths and gradients, so the whole game is about 65 KB.",
+    "New fish appear just off screen: the game picks a depth first, then a species that lives at that depth, so the whole water column stays busy.",
+    "Every sound is generated on the fly from oscillators and filtered noise."
+  ],
+  "features": [
+    { "name": "Procedural vector art", "what": "Every species is one entry in a table: size, speed, depth range, rarity and a draw function. Adding a fish means adding one entry.", "files": ["src/fish.js"] },
+    { "name": "Synthesised sound effects", "what": "Splashes, piano notes, chomps, dolphin chirps, a looping rain sound and thunder from the Web Audio API, with a mute toggle remembered in localStorage.", "files": ["src/sound.js"] },
+    { "name": "Creature AI state machine", "what": "Each fish is in one state at a time (swim, flee, chase, approach, nibble, bite, hooked, in the air), and each state has its own movement.", "files": ["src/main.js"] },
+    { "name": "Predator and prey chases", "what": "Out in deep water, big fish now and then pick a much smaller one nearby and chase it. The prey dodges, and is either eaten or gets away.", "files": ["src/main.js"] },
+    { "name": "Camera that follows the action, with parallax", "what": "Smoothed camera following the boat and then the hook; distant islands and clouds scroll more slowly to give a sense of depth.", "files": ["src/main.js"] },
+    { "name": "Weather cycle", "what": "Rain fades in and out on a timer and is likelier further out to sea: the sky colour blends, raindrops ripple the surface, the waves get choppier, and heavy rain brings lightning.", "files": ["src/main.js"] },
+    { "name": "Animated character with moods", "what": "A girl drawn in code who blinks, turns the reel, puts her hood up in the rain, looks alert when a fish bites and celebrates a catch.", "files": ["src/girl.js"] },
+    { "name": "Collection saved in the browser", "what": "A Fishdex of caught species and best sizes, kept in localStorage. Every read and write is wrapped so the game still works in private browsing.", "files": ["src/main.js"] },
+    { "name": "Zero-dependency dev server", "what": "A 20-line Node static file server with path-traversal protection, for running ES modules locally.", "files": ["server.mjs"] }
+  ]
+}
