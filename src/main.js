@@ -727,7 +727,8 @@ for (let i = 0; i < 40; i++) spawnFish(cam.x + rand(-W, W));
 
 let last = performance.now();
 function frame(now) {
-  update(Math.min(0.05, (now - last) / 1000));
+  // The first frame's timestamp can be earlier than `last`; a negative step would push the rain below zero
+  update(clamp((now - last) / 1000, 0, 0.05));
   last = now;
   draw();
   requestAnimationFrame(frame);
